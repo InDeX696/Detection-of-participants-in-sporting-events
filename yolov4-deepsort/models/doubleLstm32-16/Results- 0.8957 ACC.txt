@@ -1,0 +1,3 @@
+Best min/max values
+0.3321 Loss  0.8957 ACC
+This values are got from the evaluations of the model in its best min val_loss

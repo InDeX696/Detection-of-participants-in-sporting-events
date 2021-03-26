@@ -1,0 +1,2 @@
+loss: 2.5676 - accuracy: 0.8335
+This values are got from the evaluations of the model in its best min val_loss

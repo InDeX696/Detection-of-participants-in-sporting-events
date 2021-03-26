@@ -1,0 +1,1 @@
+loss 0.1706 - accuracy 0.9466
