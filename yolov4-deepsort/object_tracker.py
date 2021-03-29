@@ -262,7 +262,7 @@ def main(_argv):
         try:
             os.mkdir('Json/'+pathName+'/')
         except FileExistsError:
-            print("File exist")
+            error = 0
         filename = "{:06d}.json".format(frame_num) 
         
         with open('Json/'+pathName+'/' + filename, "w") as outfile:  
