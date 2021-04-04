@@ -40,9 +40,28 @@ To use this script go to ./Deteccion-of-participants-in-sporting-events/Scripts
 
 You can run this Script to tag the whole folder if you have already created a TXT file for each video.
 
-python .\JsonLabeller.py completefolder
+-python .\JsonLabeller.py completefolder
 
 If you want to tag only one video you can specify the name of the video's JSON folder and the name of the TXT file.
 
 First is the JSON FOLDER second the TXT
-python .\JsonLabeller.py   tgc-parquesur-clip13 tgc-parquesur-clip13
+
+-python .\JsonLabeller.py   tgc-parquesur-clip13 tgc-parquesur-clip13
+
+Next step is calculate the speed / speed Averange / orientation and save them into a file so we can make our dataframe.
+
+To do this you need to install a new package:
+
+-conda install scikit-learn
+
+  
+*All your videos must be at the same frameRate, and you must specify that frameRate* Our tests were conducted at 50 frames per second.
+
+Then execute
+
+-python ./Scripts/JsonAnalyser.py process NumberOfFrames
+
+This will create two files, one with the calculate data that we are going to use for the LSTM(discretize data) and another one with the data without discretize.
+
+This script can print the data in case you want to check it
+-python ./Scripts/JsonAnalyser.py print discretize
