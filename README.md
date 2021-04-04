@@ -64,4 +64,8 @@ Then execute
 This will create two files, one with the calculate data that we are going to use for the LSTM(discretize data) and another one with the data without discretize.
 
 This script can print the data in case you want to check it
--python ./Scripts/JsonAnalyser.py print discretize
+-python ./Scripts/JsonAnalyser.py print discretize.
+
+The next step is create the panda dataframe with this data. To do this you need to install panda first.
+
+-conda install pandas
