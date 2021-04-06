@@ -92,5 +92,6 @@ This script can also load and test the lstm
 
 
 Our best result got to 97.64% of validation accuracity and 0.1846 of validation error with 2 LSTM with 64 and 32 neuron and two dense layer with 32 and 1 activation sigmoid.
+<p align="center"><img src="images/model.png"\></p>
 <p align="center"><img src="images/acc.png"\></p>
 <p align="center"><img src="images/loss.png"\></p>
