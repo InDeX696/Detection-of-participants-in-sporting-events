@@ -38,9 +38,7 @@ Next step is create a txt with the numbers of the runners on ./yolov4-deepsort/o
 
 It must have the same name that the JSON folder
 
-Now we will use the Labeller, this script will read every JSON of every person and will change the type to runner
-
-if you specify his number in the txt.
+Now we will use the Labeller, this script will read every JSON of every person and will change the type to runner if you specify his number in the txt.
 
 To use this script go to ./Deteccion-of-participants-in-sporting-events/Scripts
 
@@ -59,7 +57,7 @@ First is the JSON FOLDER second the TXT
 Next step is calculate the speed / speed Averange / orientation and save them into a file so we can make our dataframe.
 
   
-*All your videos must be at the same frameRate, and you must specify that frameRate* Our tests were conducted at 50 frames per second.
+*All your videos must be at the same frameRate, and you must specify that frameRate.* (Our tests were conducted at 50 frames per second)
 
 Then execute:
 
@@ -72,9 +70,14 @@ This script can print the data in case you want to check it
 ```bash
 -python ./Scripts/JsonCharacteristic.py print discretize.
 ```
-You can select the video by typing the number on the left and then type info to see all the ID's. You can also type the ID to see his trajectory. Type "back" to navigate and "q" to exit.
+You can select the video by typing the number on the left and then type *info* to see all the ID's. You can also type the ID to see his trajectory. Type *back* to navigate and *q* to exit.
 
 The last part is training the lstm and looking at the results, but first it will create a dataframe with the data.
+
+The script will only create the dataframe if it doesn't exist because this process can be very long if you have too many videos. So if you add more videos and you want to create
+a new dataframe you have to delete the file ./Scripts/dataframe.pkl
+
+
 ```bash
 -python lstm.py train FolderNameToSaveResults NumberOfEpochs
 ```
