@@ -17,7 +17,9 @@ conda activate yolov4LSTM
 # To process a video
 
 First put your video in ./yolov4-deepsort/data/video.
+
 From Deteccion-of-participants-in-sporting-events\yolov4-deepsort executed:
+
 ```bash
 python object_tracker.py --video ./data/video/yourVideo.mp4 --output ./outputs/yourVideo-Result.avi --model yolov4 --info
 ```
