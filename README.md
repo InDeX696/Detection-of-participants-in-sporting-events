@@ -9,9 +9,10 @@ https://drive.google.com/file/d/1cdKkeAItwSVKVqt-Amx2QFIk-U6i9PUQ/view?usp=shari
 I recommended to use conda
 You have the yml at Deteccion-of-participants-in-sporting-events\Scripts
 # Tensorflow GPU
+```bash
 conda env create -f conda-gpu.yml
 conda activate yolov4LSTM
-
+```
 
 # To process a video
 
@@ -51,25 +52,26 @@ Next step is calculate the speed / speed Averange / orientation and save them in
 *All your videos must be at the same frameRate, and you must specify that frameRate* Our tests were conducted at 50 frames per second.
 
 Then execute
-
+```bash
 -python ./Scripts/JsonCharacteristic.py process NumberOfFrames
-
+```
 This will create two files, one with the calculate data that we are going to use for the LSTM(discretize data) and another one with the data without discretize.
 
 This script can print the data in case you want to check it
+```bash
 -python ./Scripts/JsonCharacteristic.py print discretize.
-
+```
 You can select the video by typing the number on the left and then type info to see all the ID's. You can also type the ID to see his trajectory. Type "back" to navigate and "q" to exit.
 
-
-
 The last part is training the lstm and looking at the results, but first it will create a dataframe with the data.
-
+```bash
 -python lstm.py train FolderNameToSaveResults NumberOfEpochs
-
+```
 This will train the lstm and save the model in two states, when it got the best validation accuracy and in the last
 epoch
 SavePath : \Deteccion-of-participants-in-sporting-events\Scripts\models\FolderNameToSaveResults
 
 This script can also load and test the lstm
--python lstm.py load ‘. \models\FolderName\FolderNameMaxValAccuracy.h5’: 
+```bash
+-python lstm.py load ‘. \models\FolderName\FolderNameMaxValAccuracy.h5’
+```
