@@ -7,7 +7,9 @@ https://drive.google.com/file/d/1cdKkeAItwSVKVqt-Amx2QFIk-U6i9PUQ/view?usp=shari
 
 
 I recommended to use conda.
+
 You have the yml at Deteccion-of-participants-in-sporting-events\Scripts
+
 # Tensorflow GPU
 ```bash
 conda env create -f conda-gpu.yml
@@ -27,24 +29,30 @@ Notice that the --info is needed.
 
 
 It will create a JSON for every frame in /yolov4-deepsort/Json/VideoName
+
 And it will output your video with the bounding boxes in ./outputs/VideoName
 
 This program do other things but i don't use it in the project, if you want to know more please go to the original page https://github.com/theAIGuysCode/yolov4-deepsort
 
 Next step is create a txt with the numbers of the runners on ./yolov4-deepsort/outputs/Runners
+
 It must have the same name that the JSON folder
+
 Now we will use the Labeller, this script will read every JSON of every person and will change the type to runner
+
 if you specify his number in the txt.
 
 To use this script go to ./Deteccion-of-participants-in-sporting-events/Scripts
 
 You can run this Script to tag the whole folder if you have already created a TXT file for each video.
+
 ```bash
 -python .\JsonLabeller.py completefolder
 ```
 If you want to tag only one video you can specify the name of the video's JSON folder and the name of the TXT file.
 
 First is the JSON FOLDER second the TXT
+
 ```bash
 -python .\JsonLabeller.py   tgc-parquesur-clip13 tgc-parquesur-clip13
 ```
@@ -53,7 +61,8 @@ Next step is calculate the speed / speed Averange / orientation and save them in
   
 *All your videos must be at the same frameRate, and you must specify that frameRate* Our tests were conducted at 50 frames per second.
 
-Then execute
+Then execute:
+
 ```bash
 -python ./Scripts/JsonCharacteristic.py process NumberOfFrames
 ```
