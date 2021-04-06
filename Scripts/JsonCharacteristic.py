@@ -40,7 +40,7 @@ class dataManager:
                     idList.add(x[1]["id"])
                     self.idArray.append((x[1]["id"], frameArray,x[1]["Type"]))
                     self.idArrayD.append((x[1]["id"], self.frameArrayD,x[1]["Type"]))
-
+                
         return self.idArray
     
     
@@ -137,7 +137,7 @@ class dataManager:
 
                     Centroid = Centroid2
                     break
-                
+                  
         return frameArray
 
 
@@ -392,12 +392,12 @@ def main():
             command = sys.argv[1]
             
             if command == "process":
-                
+               
                 files = os.listdir(path)
                 for file in files:
                     JsonPath = pathJsons+file+"/"
                     VideoName = file
-
+                  
                     
                     framesPerSecond = sys.argv[2]
                     idArray = []
@@ -405,6 +405,7 @@ def main():
 
                     arrayData.append((VideoName ,dataManager1.dataReader()))
                     arrayDataD.append((VideoName ,dataManager1.returnD()))
+                    print(arrayData)
                     aux=dataManager1.returnSpeedArray()
                     speedsArray=np.concatenate((speedsArray,aux))
                     aux2=dataManager1.returnSpeedArrayA()

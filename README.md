@@ -1,28 +1,25 @@
 # Deteccion-of-participants-in-sporting-events
 Download YoloV4.weight and put it on Deteccion-of-participants-in-sporting-events/yolov4-deepsort/data
-Download the variables.data-00000-of-00001 and put it on /yolov4-deepsort/checkpoints/yolov4-416/variables
-Getting Started with yolov4
-I recommended to use conda
-# Tensorflow CPU
-conda env create -f conda-cpu.yml
-conda activate yolov4-cpu
+https://drive.google.com/file/d/1UBzWY_8ds70t2FL2-bdc9uQ6aBzPUaMU/view?usp=sharing
 
+Download the variables.data-00000-of-00001 and put it on /yolov4-deepsort/checkpoints/yolov4-416/variables
+https://drive.google.com/file/d/1cdKkeAItwSVKVqt-Amx2QFIk-U6i9PUQ/view?usp=sharing
+
+
+I recommended to use conda
+You have the yml at Deteccion-of-participants-in-sporting-events\Scripts
 # Tensorflow GPU
 conda env create -f conda-gpu.yml
-conda activate yolov4-gpu
+conda activate yolov4LSTM
 
-# TensorFlow CPU
-pip install -r requirements.txt
 
-# TensorFlow GPU
-pip install -r requirements-gpu.txt
+# To process a video
 
-To process one video
 First put your video in ./yolov4-deepsort/data/video
 From Deteccion-of-participants-in-sporting-events\yolov4-deepsort executed:
-
+```bash
 python object_tracker.py --video ./data/video/yourVideo.mp4 --output ./outputs/yourVideo-Result.avi --model yolov4 --info
-
+```
 Notice that the --info is needed.
 
 
@@ -39,33 +36,40 @@ if you specify his number in the txt.
 To use this script go to ./Deteccion-of-participants-in-sporting-events/Scripts
 
 You can run this Script to tag the whole folder if you have already created a TXT file for each video.
-
+```bash
 -python .\JsonLabeller.py completefolder
-
+```
 If you want to tag only one video you can specify the name of the video's JSON folder and the name of the TXT file.
 
 First is the JSON FOLDER second the TXT
-
+```bash
 -python .\JsonLabeller.py   tgc-parquesur-clip13 tgc-parquesur-clip13
-
+```
 Next step is calculate the speed / speed Averange / orientation and save them into a file so we can make our dataframe.
-
-To do this you need to install a new package:
-
--conda install scikit-learn
 
   
 *All your videos must be at the same frameRate, and you must specify that frameRate* Our tests were conducted at 50 frames per second.
 
 Then execute
 
--python ./Scripts/JsonAnalyser.py process NumberOfFrames
+-python ./Scripts/JsonCharacteristic.py process NumberOfFrames
 
 This will create two files, one with the calculate data that we are going to use for the LSTM(discretize data) and another one with the data without discretize.
 
 This script can print the data in case you want to check it
--python ./Scripts/JsonAnalyser.py print discretize.
+-python ./Scripts/JsonCharacteristic.py print discretize.
 
-The next step is create the panda dataframe with this data. To do this you need to install panda first.
+You can select the video by typing the number on the left and then type info to see all the ID's. You can also type the ID to see his trajectory. Type "back" to navigate and "q" to exit.
 
--conda install pandas
+
+
+The last part is training the lstm and looking at the results, but first it will create a dataframe with the data.
+
+-python lstm.py train FolderNameToSaveResults NumberOfEpochs
+
+This will train the lstm and save the model in two states, when it got the best validation accuracy and in the last
+epoch
+SavePath : \Deteccion-of-participants-in-sporting-events\Scripts\models\FolderNameToSaveResults
+
+This script can also load and test the lstm
+-python lstm.py load ‘. \models\FolderName\FolderNameMaxValAccuracy.h5’: 
