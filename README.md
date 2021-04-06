@@ -6,7 +6,7 @@ Download the variables.data-00000-of-00001 and put it on /yolov4-deepsort/checkp
 https://drive.google.com/file/d/1cdKkeAItwSVKVqt-Amx2QFIk-U6i9PUQ/view?usp=sharing
 
 
-I recommended to use conda
+I recommended to use conda.
 You have the yml at Deteccion-of-participants-in-sporting-events\Scripts
 # Tensorflow GPU
 ```bash
@@ -16,7 +16,7 @@ conda activate yolov4LSTM
 
 # To process a video
 
-First put your video in ./yolov4-deepsort/data/video
+First put your video in ./yolov4-deepsort/data/video.
 From Deteccion-of-participants-in-sporting-events\yolov4-deepsort executed:
 ```bash
 python object_tracker.py --video ./data/video/yourVideo.mp4 --output ./outputs/yourVideo-Result.avi --model yolov4 --info
