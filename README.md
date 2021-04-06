@@ -87,7 +87,7 @@ SavePath : \Deteccion-of-participants-in-sporting-events\Scripts\models\FolderNa
 
 This script can also load and test the lstm
 ```bash
--python lstm.py load ‘. \models\FolderName\FolderNameMaxValAccuracy.h5’
+-python lstm.py load ‘.\models\FolderName\FolderNameMaxValAccuracy.h5’
 ```
 
 
