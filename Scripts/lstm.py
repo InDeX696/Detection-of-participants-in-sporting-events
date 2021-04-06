@@ -16,6 +16,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from collections import Counter
+physical_devices = tf.config.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
 def lstm(df,folder,limit,epoch=20):
     
     
@@ -37,11 +39,11 @@ def lstm(df,folder,limit,epoch=20):
     print("Test:",x_test.shape, y_test.shape)
     model = Sequential()
     
-    model.add(LSTM(128, input_shape=(x_train.shape[1],x_train.shape[2]), return_sequences=True))
+    model.add(LSTM(64, input_shape=(x_train.shape[1],x_train.shape[2]), return_sequences=True))
     model.add(Dropout(0.5))
-    model.add(LSTM(64,return_sequences=False))
+    model.add(LSTM(32,return_sequences=False))
     model.add(Dropout(0.5))
-    model.add(Dense(64))
+    model.add(Dense(32))
     model.add(Dropout(0.5))  
     model.add(Dense(1, activation='sigmoid'))
 
