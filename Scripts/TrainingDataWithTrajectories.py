@@ -53,6 +53,12 @@ def trainData(df):
     print("y values: ", y)
     
     X_train , X_test, y_train, y_test = train_test_split(X, y,test_size=0.30, random_state=0)
+    a = collections.Counter(y)
+    b = collections.Counter(y_train)
+    c = collections.Counter(y_test)
+    print("Data, 0 = Public, 1 = Runner: ",a)
+    print("Data train, 0 = Public, 1 = Runner: ",b)
+    print("Data test, 0 = Public, 1 = Runner: ",c)
     print("Number of tests: ",len(X_test))
     print("Number of trains: ", len(X_train))
     #Decision Tree
