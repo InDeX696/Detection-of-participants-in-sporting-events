@@ -1,4 +1,4 @@
-# Deteccion-of-participants-in-sporting-events
+# Detection-of-participants-in-sporting-events
 Download YoloV4.weight and put it on Deteccion-of-participants-in-sporting-events/yolov4-deepsort/data
 https://drive.google.com/file/d/1UBzWY_8ds70t2FL2-bdc9uQ6aBzPUaMU/view?usp=sharing
 
