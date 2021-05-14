@@ -45,6 +45,7 @@ def trainData(df):
     y = df['Type'].values
 
     df = df.drop(['Type'], axis = 1)
+    print(df.info())
     X = df.values
     
 
@@ -61,9 +62,9 @@ def trainData(df):
     print("Data test, 0 = Public, 1 = Runner: ",c)
     print("Number of tests: ",len(X_test))
     print("Number of trains: ", len(X_train))
-    #Decision Tree
+    #DECISION TREE
     DT = decisionTree(X_train, y_train, X_test,y_test)
-    #Random Forest
+    #RANDOM FOREST
     RF = randomForest(X_train, y_train, X_test,y_test)
     #Gradient Boosting
     GB =gradientBoosting(X_train, y_train, X_test,y_test)
@@ -78,7 +79,6 @@ def trainData(df):
     print("Naive Bayes: ", NB)
     print("Logistic Regression: ", LR)
     print("------------------------------------- ")
-
 
 
 

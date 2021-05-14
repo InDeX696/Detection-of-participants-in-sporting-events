@@ -14,8 +14,16 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import matplotlib.pyplot as plt
 from collections import Counter
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import cohen_kappa_score
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import confusion_matrix
 physical_devices = tf.config.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
 def lstm(df,folder,limit,epoch=20):
@@ -37,7 +45,7 @@ def lstm(df,folder,limit,epoch=20):
     runners = (y == 1).sum()
     print("Trajectories of public: ", public)
     print("Trajectories of runners: ", runners)
-    x_train , x_test, y_train, y_test = train_test_split(x, y,test_size=0.25, random_state=42)
+    x_train , x_test, y_train, y_test = train_test_split(x, y,test_size=0.30, random_state=42)
 
     publicTrain = (y_train == 0).sum()
     runnersTrain = (y_train == 1).sum()
@@ -51,10 +59,10 @@ def lstm(df,folder,limit,epoch=20):
     print("Test:",x_test.shape, y_test.shape)
     model = Sequential()
     
-    model.add(LSTM(64, input_shape=(x_train.shape[1],x_train.shape[2]), return_sequences=True))
+    model.add(LSTM(32, input_shape=(x_train.shape[1],x_train.shape[2]), return_sequences=False))
     model.add(Dropout(0.5))
-    model.add(LSTM(32,return_sequences=False))
-    model.add(Dropout(0.5))
+   #model.add(LSTM(32,return_sequences=False))
+    #model.add(Dropout(0.5))
     model.add(Dense(32))
     model.add(Dropout(0.5))  
     model.add(Dense(1, activation='sigmoid'))
@@ -71,6 +79,39 @@ def lstm(df,folder,limit,epoch=20):
    
     model.save("models/"+name+"/"+name+".h5")
 
+    # predict probabilities for test set
+    yhat_probs = model.predict(x_test, verbose=0)
+    # predict crisp classes for test set
+    yhat_classes = model.predict_classes(x_test, verbose=0)
+
+        # reduce to 1d array
+    yhat_probs = yhat_probs[:, 0]
+    yhat_classes = yhat_classes[:, 0]
+    #tp is the number of true positives and fp the number of false positives.
+    # accuracy: (tp + tn) / (p + n)
+    accuracy = accuracy_score(y_test, yhat_classes)
+    print('Accuracy: %f' % accuracy)
+    # precision tp / (tp + fp)
+    precision = precision_score(y_test, yhat_classes)
+    print('Precision: %f' % precision)
+    # recall: tp / (tp + fn)
+    recall = recall_score(y_test, yhat_classes)
+    print('Recall: %f' % recall)
+    # f1: 2 tp / (2 tp + fp + fn)
+    f1 = f1_score(y_test, yhat_classes)
+    print('F1 score: %f' % f1)
+    # kappa
+    kappa = cohen_kappa_score(y_test, yhat_classes)
+    print('Cohens kappa: %f' % kappa)
+    # ROC AUC
+    auc = roc_auc_score(y_test, yhat_probs)
+    print('ROC AUC: %f' % auc)
+    # confusion matrix
+    matrix = confusion_matrix(y_test, yhat_classes)
+    print(matrix)
+
+
+   
     print("Accuracy = ", (acc * 100.0), "%")
     print("Average test loss: ", np.average(history.history['loss']))
     model.summary()
@@ -94,6 +135,7 @@ def printModel(history,name):
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.legend()
+    plt.grid(axis='y', alpha=0.75)
     plt.savefig("./models/"+name+"/loss.png", dpi=300, bbox_inches='tight')
     plt.show()
     
@@ -107,6 +149,7 @@ def printModel(history,name):
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.legend()
+    plt.grid(axis='y', alpha=0.75)
     plt.savefig("./models/"+name+"/acc.png", dpi=300, bbox_inches='tight')
     plt.show()
     
@@ -145,17 +188,17 @@ def prepareData(df, limit):
                 
                 idFrames = idFrames.drop(['Type','Video','ID','Frame'], axis = 1)
                 dataX = idFrames.values
-                # print(idFrames.info)
-                # print("DataX, SIN TOCAR: ", dataX)
-                # print(dataX.shape)
+                #print(idFrames.info)
+                #print("DataX, SIN TOCAR: ", dataX)
+                #print(dataX.shape)
                 if len(dataX) % limit != 0:
                     zeros = abs((len(dataX) % limit) - limit)
                   
                     zeroArray = np.zeros((zeros,11), dtype=int)
                     dataX = np.concatenate((dataX, zeroArray))
                     
-                # print("DataX tras posible insercion de ceros: ", dataX)
-                # print(dataX.shape)
+                #print("DataX tras posible insercion de ceros: ", dataX)
+                #print(dataX.shape)
                 
                 maxs = 0
                 addX = []
@@ -178,8 +221,8 @@ def prepareData(df, limit):
                 times = int(len(addX) / limit)
                 
                 part  = np.reshape(addX,(times,limit,11))
-                # print("PART: ",  part)
-                # print("PART: ",  part.shape)
+                #print("PART: ",  part)
+                #print("PART: ",  part.shape)
                 if first:
                     trainX = np.array(trainX)
                     trainY = np.array(trainY)
@@ -192,7 +235,7 @@ def prepareData(df, limit):
             
             
                
-           # print(idFrames)
+            #print(idFrames)
             #print(idFrames.info())
     unique, counts = np.unique(trainY, return_counts=True)
     print("1 : Runner, 0 : Public")
@@ -252,13 +295,55 @@ def loadData():
 
 def loadModels(df,path_to_dir):
     x, y = prepareData(df, 400)
-    x_train , x_test, y_train, y_test = train_test_split(x, y,test_size=0.25, random_state=42)
+    x_train , x_test, y_train, y_test = train_test_split(x, y,test_size=0.30, random_state=42)
     model = load_model(path_to_dir)
     
     _, acc = model.evaluate(x_test, y_test)
+
+
+
+    yhat_probs = model.predict(x_test, verbose=0)
+    # predict crisp classes for test set
+    yhat_classes = model.predict_classes(x_test,verbose=0)
+   # print(yhat_probs)
+   # print(yhat_classes)
+        # reduce to 1d array
+    yhat_probs = yhat_probs[:, 0]
+    yhat_classes = yhat_classes[:, 0]
+    #print(yhat_probs)
+   # print(yhat_classes)
+    #tp is the number of true positives and fp the number of false positives.
+    # accuracy: (tp + tn) / (p + n)
+    accuracy = accuracy_score(y_test,yhat_classes)
+    print('Accuracy: %f' % accuracy)
+    # precision tp / (tp + fp)
+    precision = precision_score(y_test, yhat_classes)
+    print('Precision: %f' % precision)
+    # recall: tp / (tp + fn)
+    recall = recall_score(y_test, yhat_classes)
+    print('Recall: %f' % recall)
+    # f1: 2 tp / (2 tp + fp + fn)
+    f1 = f1_score(y_test, yhat_classes)
+    print('F1 score: %f' % f1)
+    # kappa
+    kappa = cohen_kappa_score(y_test, yhat_classes)
+    print('Cohens kappa: %f' % kappa)
+    # ROC AUC
+    auc = roc_auc_score(y_test, yhat_probs)
+    print('ROC AUC: %f' % auc)
+    # confusion matrix
+    print("Confusion Matrix")
+    matrix = confusion_matrix(y_test, yhat_classes)
+    print(matrix)
+
+
+
+
+
     model.summary()
     print(model.optimizer)
-    print(acc)
+    print("Accuracy = ", (acc * 100.0), "%")
+    
    
 
 def main():
