@@ -1,3 +1,11 @@
+# Introduction 
+
+This project was born with the aim of validating whether the trajectories of people appearing in an outdoor scene, corresponding to a sporting race event, make it possible to differentiate between spectators and runners.Comparing their behaviour, spectators tend to behave in a more static or erratic ways, unlike participants, who tend to behave in a more homogeneous way, as they have to follow the itinerary of the race defined by the organisers.
+
+To do this, we start from a series of videos of sport races held on the islands and we detect the people in each frame, making up each trajectory. Subsequently, we calculate a series of descriptors from these trajectories and feed them to an artificial recurrent neural network. All this with the aim of testing whether we can catalogue the people in these videos using the network and how reliably. 
+
+*This project has been a study of the results and does not aim to produce executable software. However, in this document we explain the process carried out to run and recompile the data*
+
 # Detection-of-participants-in-sporting-events
 Download YoloV4.weight and put it on Deteccion-of-participants-in-sporting-events/yolov4-deepsort/data
 https://drive.google.com/file/d/1UBzWY_8ds70t2FL2-bdc9uQ6aBzPUaMU/view?usp=sharing
@@ -90,8 +98,15 @@ This script can also load and test the lstm
 -python lstm.py load ‘.\models\FolderName\FolderNameMaxValAccuracy.h5’
 ```
 
+# Results
+In this document we have explained how to run only our best result, but we have done many more tests. Here are the results obtained with classical algorithms.
+<p align="center"><img src="images/ClassicResults.png"\></p>
 
-Our best result got to 97.64% of validation accuracity and 0.1846 of validation error with 2 LSTM with 64 and 32 neuron and two dense layer with 32 and 1 activation sigmoid.
-<p align="center"><img src="images/model.png"\></p>
-<p align="center"><img src="images/acc.png"\></p>
-<p align="center"><img src="images/loss.png"\></p>
+Using LSTM we have achieved the following results.
+<p align="center"><img src="images/LSTMResults.png"\></p>
+
+Our best result got to 98.03% of validation accuracity and 0.1542 of validation error with 2 LSTM with 64 and 32 neuron and two dense layer with 32 and 1 activation sigmoid.
+*We do not explain the results and conclusions in this document, but a report of the entire study was produced in Spanish.*
+<p align="center"><img src="images/accDoubleLSTM64-32.png"\></p>
+<p align="center"><img src="images/lossDoubleLSTM64-32.png"\></p>
+<p align="center"><img src="images/modelDoubleLSTM64-32.png"\></p>

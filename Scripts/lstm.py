@@ -59,10 +59,10 @@ def lstm(df,folder,limit,epoch=20):
     print("Test:",x_test.shape, y_test.shape)
     model = Sequential()
     
-    model.add(LSTM(32, input_shape=(x_train.shape[1],x_train.shape[2]), return_sequences=False))
+    model.add(LSTM(64, input_shape=(x_train.shape[1],x_train.shape[2]), return_sequences=False))
     model.add(Dropout(0.5))
-   #model.add(LSTM(32,return_sequences=False))
-    #model.add(Dropout(0.5))
+    model.add(LSTM(32,return_sequences=False))
+    model.add(Dropout(0.5))
     model.add(Dense(32))
     model.add(Dropout(0.5))  
     model.add(Dense(1, activation='sigmoid'))
