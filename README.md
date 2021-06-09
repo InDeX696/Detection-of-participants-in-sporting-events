@@ -108,7 +108,7 @@ Using LSTM we have achieved the following results.
 Our best result got to 98.03% of validation accuracity and 0.1542 of validation error with 2 LSTM with 64 and 32 neuron and two dense layer with 32 and 1 activation sigmoid.
 
 
-*We do not explain the results and conclusions in this document, but a report of the entire study was produced in Spanish.*
+**_We do not explain the results and conclusions in this document, but a report of the entire study was produced in Spanish._**
 
 
 <p align="center"><img alt="Accuracity graphic" src="images/accDoubleLSTM64-32.png" width="70%"\></p>
