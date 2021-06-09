@@ -100,13 +100,17 @@ This script can also load and test the lstm
 
 # Results
 In this document we have explained how to run only our best result, but we have done many more tests. Here are the results obtained with classical algorithms.
-<p align="center"><img src="images/ClassicResults.png"\></p>
+<p align="center"><img alt="Classic algorithms results" src="images/ClassicResults.png"\></p>
 
 Using LSTM we have achieved the following results.
-<p align="center"><img src="images/LSTMResults.png"\></p>
+<p align="center"><img alt="LSTM results" src="images/LSTMResults.png"  \></p>
 
 Our best result got to 98.03% of validation accuracity and 0.1542 of validation error with 2 LSTM with 64 and 32 neuron and two dense layer with 32 and 1 activation sigmoid.
+
+
 *We do not explain the results and conclusions in this document, but a report of the entire study was produced in Spanish.*
-<p align="center"><img src="images/accDoubleLSTM64-32.png"\></p>
-<p align="center"><img src="images/lossDoubleLSTM64-32.png"\></p>
-<p align="center"><img src="images/modelDoubleLSTM64-32.png"\></p>
+
+
+<p align="center"><img alt="Accuracity graphic" src="images/accDoubleLSTM64-32.png" width="50%"\></p>
+<p align="center"><img alt="Error graphic" src="images/lossDoubleLSTM64-32.png" width="50%"\></p>
+<p align="center"><img alt="LSTM model" src="images/modelDoubleLSTM64-32.png" width="50%"\></p>
