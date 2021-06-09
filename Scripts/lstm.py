@@ -295,7 +295,23 @@ def loadData():
 
 def loadModels(df,path_to_dir):
     x, y = prepareData(df, 400)
+    print("TRAINX: ", x.shape)
+    print("TRAINY: ", y.shape)
+    public = (y == 0).sum()
+    runners = (y == 1).sum()
+    print("Trajectories of public: ", public)
+    print("Trajectories of runners: ", runners)
     x_train , x_test, y_train, y_test = train_test_split(x, y,test_size=0.30, random_state=42)
+    publicTrain = (y_train == 0).sum()
+    runnersTrain = (y_train == 1).sum()
+    publicTest = (y_test == 0).sum()
+    runnersTest = (y_test == 1).sum()
+    print("Trajectories of public in training: ", publicTrain)
+    print("Trajectories of runners in training: ", runnersTrain)
+    print("Trajectories of public in testing: ", publicTest)
+    print("Trajectories of runners in testing: ", runnersTest)
+    print("Train: ",x_train.shape, y_train.shape)
+    print("Test:",x_test.shape, y_test.shape)
     model = load_model(path_to_dir)
     
     _, acc = model.evaluate(x_test, y_test)
